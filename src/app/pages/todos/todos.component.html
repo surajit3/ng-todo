@@ -1,0 +1,28 @@
+<div class="my-4 h-100">
+    <input class="form-control" type="text" [(ngModel)]="userInput">
+    <button class="btn btn-primary w-100 my-2" *ngIf="!isEdit" (click)="addTodos()">Add New Todo</button>
+    <button class="btn btn-success w-100 my-2" *ngIf="isEdit" (click)="actions('save', editId)">Save Edit</button>
+
+    <table class="table table-success table-striped my-5">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Todos</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of todos; let id = index">
+                <td> <input type="checkbox" class="form-check-input" (click)="actions('status', id)" [checked]="todo.status === 'done'"> </td>
+                <td class="text-start"> <span [ngStyle]="{'text-decoration': todo.status === 'done' ? 'line-through' : 'none'}"> {{todo.todo}} </span> </td>
+                <td> 
+                    <span class="me-2" *ngIf="todo.status === ''" (click)="actions('edit', id)"><i class="fa-solid fa-pen-to-square"></i></span>  
+                    <span class="me-2" *ngIf="todo.status === ''" (click)="actions('delete', id)"><i class="fa-solid fa-trash-can"></i></span> 
+                </td>
+            </tr>
+            <tr *ngIf="!todos.length">
+                <td colspan="3">Empty List !!</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
